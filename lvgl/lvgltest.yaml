@@ -5,7 +5,7 @@ substitutions:
 
   # 允许显示的字符集。此列表非常庞大，包含了多语言字符。
   allowed_characters: |-
-    一二三四五六七八九十百千万亿温度湿电压·！@#￥%…&*（）—+-=、|【{}】；：‘“”，《。》/？℃℉￡ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~`!$^()_[]\;:'",<.>?
+    测试一二三四五六七八九十百千万亿温度湿电压·！@#￥%…&*（）—+-=、|【{}】；：‘“”，《。》/？℃℉￡ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~`!$^()_[]\;:'",<.>?
   
 esphome:
   name: ${name}
@@ -202,27 +202,24 @@ lvgl:
   default_font: cn_font
 
   pages:
-    # ===== 页面：主页面 =====
     - id: main_page
-      # 页面不需要显式设置 width/height，自动填满显示器
-      bg_color: 0x1A1A2E  # 深蓝背景，便于观察布局
+      bg_color: 0x1A1A2E
       layout:
         type: grid
-        grid_rows: [ 80px, FR(1), FR(1) ]      # 第0行固定80px(标题栏)，下面两行均分剩余空间
-        grid_columns: [ FR(1), FR(1) ]          # 两列均分
+        grid_rows: [ 80px, FR(1), FR(1) ]
+        grid_columns: [ FR(1), FR(1) ]
         pad_row: 12px
         pad_column: 12px
-        pad_all: 8px                            # 页面内边距
-
+        pad_all: 8px
       widgets:
-        # --- 标题栏：跨2列 ---
+        # --- 标题栏 ---
         - label:
             text: "BOX-3测试"
             text_font: cn_font
             text_color: 0xFFFFFF
             grid_cell_row_pos: 0
             grid_cell_column_pos: 0
-            grid_cell_column_span: 2              # 跨2列
+            grid_cell_column_span: 2
             grid_cell_x_align: CENTER
             grid_cell_y_align: CENTER
             bg_color: 0x16213E
