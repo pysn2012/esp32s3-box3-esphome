@@ -5,7 +5,7 @@ substitutions:
 
   # 允许显示的字符集。此列表非常庞大，包含了多语言字符。
   allowed_characters: |-
-    测试一二三四五六七八九十百千万亿温度湿电压·！@#￥%…&*（）—+-=、|【{}】；：‘“”，《。》/？℃℉￡ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~`!$^()_[]\;:'",<.>?
+    测试一二三四五六七八九十百千万亿温度湿电池量压·！@#￥%…&*（）—+-=、|【{}】；：‘“”，《。》/？℃℉￡ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~`!$^()_[]\;:'",<.>?
   
 esphome:
   name: ${name}
@@ -81,15 +81,28 @@ sensor:
     temperature:
       name: "S3 Temperature"
       id: s3temp
+      on_value:
+        - lvgl.label.update:
+            id: lbl_temp
+            text:
+              format: "温度: %.1f℃"
+              args: [ 'x' ]
     humidity:
       name: "S3 Humidity"
-    update_interval: 60s
+      id: s3humi
+      on_value:
+        - lvgl.label.update:
+            id: lbl_humi
+            text:
+              format: "湿度: %.1f%%"
+              args: [ 'x' ]
+    update_interval: 30s
 
   - platform: adc
     pin: GPIO10
     id: battery_voltage
     unit_of_measurement: "V"
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     device_class: "voltage"
     entity_category: "diagnostic"
     disabled_by_default: true
@@ -106,11 +119,30 @@ sensor:
     accuracy_decimals: 0
     device_class: "battery"
     entity_category: "diagnostic"
+    on_value:
+      - lvgl.label.update:
+          id: lbl_battery_pct
+          text:
+            format: "电量: %.0f%%"
+            args: [ 'x' ]
     filters:
       - lambda: return (x - 2.7) / (4.2 - 2.7) * 100;
       - clamp:
           min_value: 0
           max_value: 100
+
+  - platform: copy
+    source_id: battery_voltage
+    id: battery_voltage_copy
+    name: "Battery Voltage Display"
+    internal: true
+    accuracy_decimals: 2
+    on_value:
+      - lvgl.label.update:
+          id: lbl_voltage
+          text:
+            format: "电压: %.2fV"
+            args: [ 'x' ]
 
   - platform: wifi_signal
     name: "WiFi db"
@@ -170,74 +202,101 @@ touchscreen:
 lvgl:
   displays:
     - s3_box_lcd
+  touchscreens:
+    - gt911_touchscreen
+  byte_order: little_endian
+  buffer_size: 25%
   default_font: cn_font
+
+  # 全局主题：黑底白字
+  theme:
+    dark_mode: true
 
   pages:
     - id: main_page
-      bg_color: 0x1A1A2E
-      layout:
-        type: grid
-        grid_rows: [ 80px, FR(1), FR(1) ]
-        grid_columns: [ FR(1), FR(1) ]
-        pad_row: 12px
-        pad_column: 12px
+      bg_color: 0x000000
       widgets:
-        # --- 标题栏 ---
-        - label:
-            text: "BOX-3测试"
-            text_font: cn_font
-            text_color: 0xFFFFFF
-            grid_cell_row_pos: 0
-            grid_cell_column_pos: 0
-            grid_cell_column_span: 2
-            grid_cell_x_align: CENTER
-            grid_cell_y_align: CENTER
-            bg_color: 0x16213E
-            radius: 8
-            pad_all: 4px
+        - tabview:
+            id: main_tabview
+            position: BOTTOM
+            size: 40px
+            bg_color: 0x000000
+            border_width: 0
 
-        # --- 温度卡片 ---
-        - obj:
-            grid_cell_row_pos: 1
-            grid_cell_column_pos: 0
-            bg_color: 0x0F3460
-            radius: 12
-            pad_all: 12px
-            layout:
-              type: flex
-              flex_flow: COLUMN
-              flex_align_main: CENTER
-              flex_align_cross: CENTER
-              pad_row: 4px
-            widgets:
-              - label:
-                  text: "温度"
-                  text_color: 0xE94560
-              - label:
-                  id: device_temp
-                  text: "25.1℃"
-                  text_font: cn_font
+            # 标签栏样式（底部按钮）
+            tab_style:
+              bg_color: 0x1a1a1a
+              border_width: 0
+              pad_all: 0
+              items:
+                bg_color: 0x1a1a1a
+                text_color: 0x888888
+                pressed:
+                  bg_color: 0x333333
                   text_color: 0xFFFFFF
+                checked:
+                  bg_color: 0x000000
+                  text_color: 0xFFFFFF
+                  border_width: 2
+                  border_color: 0xFFFFFF
+                  border_side: [TOP]
 
-        # --- 湿度卡片 ---
-        - obj:
-            grid_cell_row_pos: 1
-            grid_cell_column_pos: 1
-            bg_color: 0x0F3460
-            radius: 12
-            pad_all: 12px
-            layout:
-              type: flex
-              flex_flow: COLUMN
-              flex_align_main: CENTER
-              flex_align_cross: CENTER
-              pad_row: 4px
-            widgets:
-              - label:
-                  text: "湿度"
-                  text_color: 0x00D9FF
-              - label:
-                  id: device_humi
-                  text: "60.0%"
-                  text_font: cn_font
-                  text_color: 0xFFFFFF
+            # 内容区域样式
+            content_style:
+              bg_color: 0x000000
+              pad_all: 8px
+
+            tabs:
+              # ===== 标签页 1：温湿度 =====
+              - name: "环境"
+                id: tab_env
+                widgets:
+                  - obj:
+                      width: 100%
+                      height: 100%
+                      bg_color: 0x000000
+                      border_width: 0
+                      layout:
+                        type: flex
+                        flex_flow: COLUMN
+                        flex_align_main: CENTER
+                        flex_align_cross: CENTER
+                        pad_row: 24px
+                      widgets:
+                        - label:
+                            id: lbl_temp
+                            text: "温度: --.-℃"
+                            text_font: cn_font
+                            text_color: 0xFFFFFF
+                        - label:
+                            id: lbl_humi
+                            text: "湿度: --.-%%"
+                            text_font: cn_font
+                            text_color: 0xFFFFFF
+
+              # ===== 标签页 2：电池 =====
+              - name: "电池"
+                id: tab_battery
+                widgets:
+                  - obj:
+                      width: 100%
+                      height: 100%
+                      bg_color: 0x000000
+                      border_width: 0
+                      layout:
+                        type: flex
+                        flex_flow: COLUMN
+                        flex_align_main: CENTER
+                        flex_align_cross: CENTER
+                        pad_row: 24px
+                      widgets:
+                        - label:
+                            id: lbl_voltage
+                            text: "电压: --.--V"
+                            text_font: cn_font
+                            text_color: 0xFFFFFF
+                        - label:
+                            id: lbl_battery_pct
+                            text: "电量: --%%"
+                            text_font: cn_font
+                            text_color: 0xFFFFFF

@@ -68,5 +68,5 @@ jobs:
             ${{ steps.find_fw.outputs.FIRMWARE }}
             ${{ steps.find_fw.outputs.OTA }}
             ${{ steps.find_fw.outputs.FACTORY }}
-            lvgl/main.yaml
+            main.yaml
           retention-days: 30
