@@ -71,5 +71,4 @@ display:
       number: 48
       inverted: true
     update_interval: never
-    update_interval: never
     auto_clear_enabled: False
