@@ -83,8 +83,6 @@ binary_sensor:
 
   # ===========================================================================
   # 传感器：小米插座1开关
-  # 关联 UI 元素：
-  #   lvgl.yaml → office_scene_evening_button
   # ===========================================================================
   - platform: homeassistant
     id: chuangmi_socket1_status

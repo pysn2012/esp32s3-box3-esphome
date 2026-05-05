@@ -85,7 +85,7 @@ lvgl:
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: false
+            checkable: true
             id: chuangmi_socket1_button
             styles: control
             grid_cell_column_pos: 0
@@ -100,8 +100,8 @@ lvgl:
                   align: bottom_left
                   id: chuangmi_socket1_label
                   text: "Socket"
-            on_press:
-              - homeassistant.service:
+            on_click:
+              - homeassistant.action:
                   service: switch.toggle
                   data:
                     entity_id: switch.chuangmi_cn_125697630_m3_on_p_2_1
@@ -112,7 +112,7 @@ lvgl:
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: false
+            checkable: true
             id: chuangmi_socket2_button
             styles: control
             grid_cell_column_pos: 1
@@ -127,8 +127,8 @@ lvgl:
                   align: bottom_left
                   id: chuangmi_socket2_label
                   text: "Socket"
-            on_press:
-              - homeassistant.service:
+            on_click:
+              - homeassistant.action:
                   service: switch.toggle
                   data:
                     entity_id: switch.chuangmi_cn_125796823_m3_on_p_2_1
@@ -223,7 +223,7 @@ lvgl:
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: false
+            checkable: true
             id: chuangmi_socket3_button
             styles: control
             grid_cell_column_pos: 1
@@ -238,8 +238,8 @@ lvgl:
                   align: bottom_left
                   id: chuangmi_socket3_label
                   text: "Socket"
-            on_press:
-              - homeassistant.service:
+            on_click:
+              - homeassistant.action:
                   service: switch.toggle
                   data:
                     entity_id: switch.chuangmi_cn_125520813_m3_on_p_2_1
