@@ -164,8 +164,8 @@ lvgl:
             checkable: false
             id: extras_nav_button
             styles: control
-            grid_cell_column_pos: 2
-            grid_cell_row_pos: 2
+            grid_cell_column_pos: 1
+            grid_cell_row_pos: 1
             widgets:
               - label:
                   text_font: $icon_font
