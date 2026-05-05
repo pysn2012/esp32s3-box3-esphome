@@ -85,7 +85,7 @@ lvgl:
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: true
+            checkable: false
             id: chuangmi_socket1_button
             styles: control
             grid_cell_column_pos: 0
@@ -112,7 +112,7 @@ lvgl:
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: true
+            checkable: false
             id: chuangmi_socket2_button
             styles: control
             grid_cell_column_pos: 1
@@ -223,7 +223,7 @@ lvgl:
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: true
+            checkable: false
             id: chuangmi_socket3_button
             styles: control
             grid_cell_column_pos: 1
