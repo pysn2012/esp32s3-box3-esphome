@@ -1,7 +1,7 @@
-# ESP32-S3-BOX-3
+# ESP32-CYB2.4
 substitutions:
-  name: "esp32-s3-box3"
-  friendly_name: "esp32-s3-box3"
+  name: "esp32-cyb24"
+  friendly_name: "esp32-cyb24"
 
 # Wifi
 wifi:

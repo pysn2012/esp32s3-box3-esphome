@@ -1,11 +1,14 @@
 esp32:
-  board: esp32-s3-devkitc-1
+  variant: esp32
+  flash_size: 4MB
   framework:
     type: esp-idf
 
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
+  min_version: 2025.5.0
+  name_add_mac_suffix: true
 
 ota:
   platform: esphome
@@ -15,8 +18,6 @@ api:
 logger:
 
 psram:
-  mode: octal
-  speed: 80MHz
 
 # 屏幕背光控制 (GPIO47)
 # - frequency: 150Hz PWM 频率（足够高以避免闪烁）
@@ -25,7 +26,7 @@ psram:
 output:
   - platform: ledc
     id: backlight_output
-    pin: GPIO47
+    pin: GPIO26
     frequency: 150Hz
     min_power: 0.01
     zero_means_zero: true
@@ -43,40 +44,46 @@ light:
 # SPI总线
 spi:
   - id: lcd_spi
-    clk_pin: GPIO7
-    mosi_pin: GPIO6
+    clk_pin: GPIO14
+    mosi_pin: GPIO13
+    miso_pin: GPIO12
 
-# I2C总线 (用于触摸屏)
-i2c:
-  id: touchscreen_bus
-  sda: GPIO8
-  scl: GPIO18
-
-# 触摸屏 (GT911)
+# 触摸屏 (xpt2046)
 touchscreen:
-  - platform: gt911
-    i2c_id: touchscreen_bus
-    address: 0x5D
+  - platform: xpt2046
     id: tft_touch
-    display: tft_display
-    interrupt_pin:
-      number: GPIO3
-      ignore_strapping_warning: true
+    spi_id: lcd_spi
+    cs_pin: 33
+    interrupt_pin: 32
+    transform:
+      swap_xy: true
+      mirror_x: false
+      mirror_y: false
+    calibration:
+      x_min: 280
+      x_max: 3860
+      y_min: 340
+      y_max: 3860
+
 
 # 显示屏(ILI9341)
 display:
-  - platform: ili9xxx
+  - platform: mipi_spi
     id: tft_display
+    model: ILI9341
+    invert_colors: false
+    data_rate: 40MHz
+    cs_pin: 15
+    dc_pin: 4
+    reset_pin:
+      number: 25
+      inverted: true
+    update_interval: never
+    auto_clear_enabled: false
     dimensions:
       width: 320
       height: 240
-    model: S3BOX
-    invert_colors: false
-    data_rate: 40MHz
-    cs_pin: 5
-    dc_pin: 4
-    reset_pin:
-      number: 48
-      inverted: true
-    update_interval: never
-    auto_clear_enabled: False
+    transform:
+      swap_xy: true
+      mirror_x: false
+      mirror_y: false
