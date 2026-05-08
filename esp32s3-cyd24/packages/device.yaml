@@ -55,9 +55,9 @@ touchscreen:
     cs_pin: 5
     interrupt_pin: 8
     transform:
-      swap_xy: false
-      mirror_x: true
-      mirror_y: true
+      swap_xy: true
+      mirror_x: false
+      mirror_y: false
     calibration:
       x_min: 600
       x_max: 3520
