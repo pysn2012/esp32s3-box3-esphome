@@ -69,7 +69,10 @@ display:
     reset_pin: 15
     update_interval: 1s
     auto_clear_enabled: false
-    rotation: 90
+    transform:
+      swap_xy: true        # 转竖屏 240x320
+      mirror_x: false
+      mirror_y: false
     dimensions:
       width: 320
       height: 240
