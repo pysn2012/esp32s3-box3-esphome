@@ -103,36 +103,40 @@ lvgl:
         # 中部信息区 - 纯文字，无容器无底色
         - label:
             id: outdoor_info
+            width: 100%
             text: "室外：--℃/--%"
             text_color: 0xFFFFFF
             text_font: cn_font
             text_align: left
             pad_top: 20
-            pad_bottom: 6
+            pad_bottom: 5
         - label:
             id: air_info
+            width: 100%
             text: "--hPa/--PPM"
             text_color: 0xFFFFFF
             text_font: cn_font
             text_align: left
-            pad_top: 6
-            pad_bottom: 6
+            pad_top: 5
+            pad_bottom: 5
         - label:
             id: weather_alert_text
+            width: 100%
             text: "预警：加载中..."
             text_color: 0xFF8C00
             text_font: cn_font
             text_align: left
             long_mode: wrap
-            pad_top: 6
-            pad_bottom: 6
+            pad_top: 5
+            pad_bottom: 5
         - label:
             id: indoor_info
+            width: 100%
             text: "室内：--℃/--%"
             text_color: 0xFFFFFF
             text_font: cn_font
             text_align: left
-            pad_top: 6
+            pad_top: 5
             pad_bottom: 10
 
     # ===== 灯光页（屏幕亮度控制）=====
@@ -293,6 +297,7 @@ lvgl:
       widgets:
         - label:
             id: network_ip
+            width: 100%
             text: "IP: 获取中..."
             text_color: 0xFFFFFF
             text_font: cn_font
@@ -301,6 +306,7 @@ lvgl:
             pad_bottom: 6
         - label:
             id: network_wifi
+            width: 100%
             text: "WiFi: --dB/--%"
             text_color: 0xFFFFFF
             text_font: cn_font
