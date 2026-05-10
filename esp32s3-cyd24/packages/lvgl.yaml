@@ -203,7 +203,7 @@ lvgl:
                     entity_id: switch.chuangmi_cn_125697630_m3_on_p_2_1
 
         # 按钮：插座2
-         - button: 
+        - button: 
             height: $button_height_single
             width: $button_width
             checkable: true
