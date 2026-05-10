@@ -25,7 +25,8 @@ lvgl:
         flex_flow: column
         flex_align_main: start        # 主轴：从顶部开始排列
         flex_align_cross: stretch     # 交叉轴：子元素宽度拉伸填满
-        flex_track_place: start
+        flex_align_track: start
+        pad_row: 8                    # 子元素之间的垂直间距
       scrollbar_mode: "off"
       width: 100%
       bg_color: Black
@@ -34,7 +35,7 @@ lvgl:
       pad_bottom: 8
       pad_left: 10
       pad_right: 10
-      pad_row: 8                    # 子元素之间的垂直间距
+
       
       widgets:        
         # ===== 室外环境卡片 =====
