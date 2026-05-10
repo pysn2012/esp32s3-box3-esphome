@@ -34,74 +34,48 @@ lvgl:
       pad_bottom: 8
       pad_left: 10
       pad_right: 10
-
       
       widgets:        
-        # 中部信息区（占据剩余空间，内容垂直居中）
-        - obj:
-            width: 100%
-            flex_grow: 1
-            layout:
-              type: flex
-              flex_flow: column
-              flex_align_main: center
-              flex_align_cross: center
-              pad_row: 16
-            widgets:
-              - label:
-                  id: outdoor_info
-                  text: "室外：--℃/--%"
-                  text_color: 0xFFFFFF
-                  text_font: cn_font
-                  text_align: center
-              - label:
-                  id: indoor_info
-                  text: "室内：--℃/--%"
-                  text_color: 0xFFFFFF
-                  text_font: cn_font
-                  text_align: center
-              - label:
-                  id: weather_alert_text
-                  text: "预警：加载中..."
-                  text_color: 0xFF8C00
-                  text_font: cn_font
-                  text_align: center
+        # 中部信息区 - 纯文字，无容器无底色
+        - label:
+            id: outdoor_info
+            text: "室外：--℃/--%"
+            text_color: 0xFFFFFF
+            text_font: cn_font
+            text_align: center
+            pad_top: 20
+            pad_bottom: 6
+        - label:
+            id: indoor_info
+            text: "室内：--℃/--%"
+            text_color: 0xFFFFFF
+            text_font: cn_font
+            text_align: center
+            pad_top: 6
+            pad_bottom: 6
+        - label:
+            id: weather_alert_text
+            text: "预警：加载中..."
+            text_color: 0xFF8C00
+            text_font: cn_font
+            text_align: center
+            pad_top: 6
+            pad_bottom: 20
 
         # 底部按钮区
-        - obj:
-            width: 100%
-            height: 80
-            layout:
-              type: flex
-              flex_flow: row
-              flex_align_main: center
-              flex_align_cross: center
-              pad_column: 30
+        - button:
+            height: 50px
+            width: 50px
+            radius: $radius
+            styles: control
+            pad_top: 10
             widgets:
-              - button:
-                  height: 56px
-                  width: 56px
-                  radius: $radius
-                  styles: control
-                  widgets:
-                    - label:
-                        text_font: $icon_font
-                        align: center
-                        text: "\U000F02DC"
-                  on_click:
-                    - lvgl.page.show: extras_page
-              - button:
-                  height: 56px
-                  width: 56px
-                  radius: $radius
-                  styles: control
-                  widgets:
-                    - label:
-                        text_font: $icon_font
-                        align: center
-                        text: "\U000F0905"
-                  on_click:
-                    - lvgl.page.show: extras_page
+              - label:
+                  text_font: $icon_font
+                  align: center
+                  text: $socket
+            on_click:
+              - lvgl.page.show: extras_page
 
     # 附加控制页面
     - id: extras_page
