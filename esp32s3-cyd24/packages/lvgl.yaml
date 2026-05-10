@@ -54,7 +54,7 @@ lvgl:
               - label:
                   text: "室外 · 厦门"
                   text_color: 0x888888
-                  text_font: $text_font
+                  text_font: cn_font
                   height: 18
               - obj:
                   width: 100%
@@ -67,14 +67,14 @@ lvgl:
                   widgets:
                     - label:
                         id: outdoor_temp_display
-                        text: "--°C"
+                        text: "--℃"
                         text_color: 0xFFFFFF
-                        text_font: $text_font
+                        text_font: cn_font
                     - label:
                         id: outdoor_humi_display
                         text: "--%"
                         text_color: 0xFFFFFF
-                        text_font: $text_font
+                        text_font: cn_font
 
         # ===== 室内环境卡片 =====
         - obj:
@@ -92,7 +92,7 @@ lvgl:
               - label:
                   text: "室内环境"
                   text_color: 0x888888
-                  text_font: $text_font
+                  text_font: cn_font
                   height: 18
               - obj:
                   width: 100%
@@ -105,20 +105,21 @@ lvgl:
                   widgets:
                     - label:
                         id: indoor_temp_display
-                        text: "--°C"
+                        text: "--℃"
                         text_color: 0xFFFFFF
-                        text_font: $text_font
+                        text_font: cn_font
                     - label:
                         id: indoor_humi_display
                         text: "--%"
                         text_color: 0xFFFFFF
-                        text_font: $text_font
+                        text_font: cn_font
 
         # ===== 天气预警文本 =====
         - label:
             id: weather_alert_text
             text: "天气预警: 加载中..."
             text_color: 0xFF8C00
+            text_font: cn_font
             text_align: center
             width: 100%
             height: 32
@@ -138,6 +139,7 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "插座控制"
+                  text_font: cn_font
             on_click:
               - lvgl.page.show: extras_page
 
@@ -175,6 +177,7 @@ lvgl:
               - label:
                   align: bottom_left
                   text: "主页"
+                  text_font: cn_font
             on_click:
               - lvgl.page.show: main_page
 
@@ -197,6 +200,7 @@ lvgl:
                   align: bottom_left
                   id: chuangmi_socket1_label
                   text: "插座1"
+                  text_font: cn_font
             on_click:
               - homeassistant.action:
                   service: switch.toggle
@@ -222,6 +226,7 @@ lvgl:
                   align: bottom_left
                   id: chuangmi_socket2_label
                   text: "插座2"
+                  text_font: cn_font
             on_click:
               - homeassistant.action:
                   service: switch.toggle
@@ -247,6 +252,7 @@ lvgl:
                   align: bottom_left
                   id: chuangmi_socket3_label
                   text: "插座3"
+                  text_font: cn_font
             on_click:
               - homeassistant.action:
                   service: switch.toggle
