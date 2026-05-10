@@ -3,6 +3,10 @@ substitutions:
   name: "esp32s3-cyd24"
   friendly_name: "esp32s3-cyd24"
 
+  # 允许显示的字符集
+  allowed_characters: |-
+    一二三四五六七八九十百千万亿年月日星期时间分秒厦门天气温湿度未来小不会下雨大直客厅甲醛弱电箱内存硬盘卧室空调工作台厨房冰你我他好世界开心快乐和总量冷冻藏排插本机功率运行池压流阻·！@#￥%…&*（）—+-=、|【{}】；：‘“”，《。》/？℃℉￡ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890μ³~`!$^()_[]\;:'",<.>?
+ 
 # Wifi
 wifi:
   ssid: !secret wifi_ssid
